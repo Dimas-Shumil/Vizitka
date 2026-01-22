@@ -29,6 +29,39 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// Инициализация Swiper
+document.addEventListener('DOMContentLoaded', () => {
+  const projectsSwiper = new Swiper('.projects-swiper', {
+    loop: true,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    slidesPerView: 1,
+    spaceBetween: 30,
+    breakpoints: {
+      // При ширине > 768px — 2 слайда
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      // При ширине > 1024px — 3 слайда
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+  });
+});
+
 // // ширина экрана в кнопке
 // const button = document.querySelector('button');
 

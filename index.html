@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="site/css/sass.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <title>ВИЗИТКА-2026</title>
 </head>
 
@@ -72,6 +73,43 @@
             </div>
         </section>
 
+        <!-- PROJECKT -->
+
+        <section class="projects-section">
+            <h2>Мои проекты</h2>
+            <div class="swiper projects-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Проект 1 -->
+                    <div class="swiper-slide project-slide">
+                        <a href="https://example.com/project1" target="_blank">
+                            <img src="site/img/images (1).jpg" alt="Проект 1: Интернет‑магазин" class="project-img">
+                            <div class="project-title">Интернет‑магазин</div>
+                        </a>
+                    </div>
+                    <!-- Проект 2 -->
+                    <div class="swiper-slide project-slide">
+                        <a href="https://example.com/project2" target="_blank">
+                            <img src="site/img/images.jpg" alt="Проект 2: Блог на React" class="project-img">
+                            <div class="project-title">Блог на React</div>
+                        </a>
+                    </div>
+                    <!-- Проект 3 -->
+                    <div class="swiper-slide project-slide">
+                        <a href="https://example.com/project3" target="_blank">
+                            <img src="site/img/images (1).jpg" alt="Проект 3: CRM‑система" class="project-img">
+                            <div class="project-title">CRM‑система</div>
+                        </a>
+                    </div>
+                    <!-- Добавьте больше слайдов по аналогии -->
+                </div>
+                <!-- Кнопки навигации -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <!-- Пагинация -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+
         <section class="contact-section">
 
             <h2>Свяжитесь со мной</h2>
@@ -106,9 +144,12 @@
                 </a>
             </div>
         </section>
+
+
     </main>
 
     <script src="site/js/js.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 </body>
 
