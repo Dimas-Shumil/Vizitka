@@ -509,7 +509,8 @@ body {
 
 .contact-methods {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /*изминил ширину минмакс с 250 на 200*/
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 25px;
   margin-bottom: 60px;
 }
