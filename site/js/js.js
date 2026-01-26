@@ -412,7 +412,7 @@ function initFloatingElements() {
   const elements = document.querySelectorAll('.floating-element');
   elements.forEach((el, index) => {
     // Случайная задержка для каждого элемента
-    const delay = index * 0.5;
+    const delay = index * 0.9;
     el.style.animationDelay = `${delay}s`;
   });
 }

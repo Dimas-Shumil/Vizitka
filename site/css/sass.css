@@ -328,6 +328,16 @@ body {
     transform: translateY(-15px);
   }
 }
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 /* About Section */
 .about {
   padding: 100px 0;
