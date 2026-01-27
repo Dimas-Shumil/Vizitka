@@ -1,4 +1,177 @@
+    // Логика прелоудера
+        document.addEventListener('DOMContentLoaded', () => {
+            const preloader = document.getElementById('preloader');
+            const mainContent = document.getElementById('main-content');
+            const smokeContainer = document.getElementById('smokeContainer');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            
+            let progress = 0;
+            let smokeParticles = [];
+            let sparks = [];
+            let projectsSwiper = null; // Переменная для Swiper
+            
+            // Создание частиц черного дыма
+            function createSmoke() {
+                const particleCount = 80 + Math.floor(Math.random() * 40);
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('smoke-particle');
+                    
+                    const size = 40 + Math.random() * 110;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    
+                    const posX = Math.random() * 100;
+                    const posY = 70 + Math.random() * 30;
+                    particle.style.left = `${posX}%`;
+                    particle.style.top = `${posY}%`;
+                    
+                    const darkness = 10 + Math.random() * 20;
+                    particle.style.background = `radial-gradient(circle, rgba(${darkness},${darkness},${darkness},0.9) 0%, rgba(0,0,0,0.7) 70%)`;
+                    
+                    const duration = 3 + Math.random() * 4;
+                    particle.style.animation = `smoke-dissipate ${duration}s ease-out forwards`;
+                    particle.style.animationDelay = `${Math.random() * 2}s`;
+                    
+                    smokeContainer.appendChild(particle);
+                    smokeParticles.push(particle);
+                    
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.remove();
+                        }
+                    }, duration * 1000);
+                }
+            }
+            
+            // Создание искр
+            function createSparks() {
+                const sparkCount = 10 + Math.floor(Math.random() * 10);
+                
+                for (let i = 0; i < sparkCount; i++) {
+                    const spark = document.createElement('div');
+                    spark.classList.add('spark');
+                    
+                    const size = 3 + Math.random() * 8;
+                    spark.style.width = `${size}px`;
+                    spark.style.height = `${size}px`;
+                    
+                    const posX = 40 + Math.random() * 20;
+                    spark.style.left = `${posX}%`;
+                    spark.style.top = `85%`;
+                    
+                    const hue = 30 + Math.random() * 20;
+                    spark.style.background = `radial-gradient(circle, 
+                        hsla(${hue}, 100%, 50%, 0.9) 0%, 
+                        hsla(${hue+10}, 100%, 60%, 0.7) 50%, 
+                        transparent 70%)`;
+                    
+                    const duration = 1 + Math.random() * 1.5;
+                    const sparkX = (Math.random() - 0.5) * 100;
+                    spark.style.setProperty('--spark-x', `${sparkX}px`);
+                    spark.style.animation = `spark-fly ${duration}s ease-out forwards`;
+                    
+                    smokeContainer.appendChild(spark);
+                    sparks.push(spark);
+                    
+                    setTimeout(() => {
+                        if (spark.parentNode) {
+                            spark.remove();
+                        }
+                    }, duration * 1000);
+                }
+            }
+               // Обновление прогресса загрузки
+            function updateProgress() {
+                if (progress >= 100) return;
+                
+                const increment = 1 + Math.random() * 4;
+                progress = Math.min(progress + increment, 100);
+                
+                progressBar.style.width = `${progress}%`;
+                
+                // Обновляем текст в зависимости от прогресса
+                if (progress < 20) {
+                    progressText.textContent = "Запуск темных протоколов...";
+                } else if (progress < 40) {
+                    progressText.textContent = "Генерация дымовой завесы...";
+                } else if (progress < 60) {
+                    progressText.textContent = "Активация искровых систем...";
+                } else if (progress < 80) {
+                    progressText.textContent = "Загрузка креативных модулей...";
+                } else if (progress < 95) {
+                    progressText.textContent = "Финальная инициализация...";
+                } else {
+                    progressText.textContent = "Система готова. Входим в темноту...";
+                }
+                
+                // Создаем дым и искры в зависимости от прогресса
+                if (progress < 30) {
+                    if (progress % 5 < 1) createSmoke();
+                } else if (progress < 70) {
+                    if (progress % 4 < 1) createSmoke();
+                    if (progress % 6 < 1) createSparks();
+                } else {
+                    if (progress % 8 < 1) createSmoke();
+                    if (progress % 3 < 1) createSparks();
+                }
+                
+                if (progress < 100) {
+                    setTimeout(updateProgress, 50 + Math.random() * 150);
+                } else {
+                    setTimeout(() => {
+                        smokeParticles.forEach(p => {
+                            p.style.animationDuration = '0.5s';
+                        });
+                        
+                        sparks.forEach(s => {
+                            s.style.animationDuration = '0.3s';
+                        });
+                        
+                        setTimeout(() => {
+                            preloader.style.animation = 'fadeOut 1.2s ease forwards';
+                            
+                            setTimeout(() => {
+                                preloader.style.display = 'none';
+                                mainContent.style.opacity = '1';
+                                mainContent.style.transition = 'opacity 0.8s ease';
+                                
+                                // Инициализация всех компонентов после загрузки
+                                initMainScripts();
+                            }, 1200);
+                        }, 800);
+                    }, 1000);
+                }
+            }
+               // Инициализация прелоудера
+            function initPreloader() {
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => createSmoke(), i * 300);
+                }
+                setTimeout(updateProgress, 800);
+            }
+            
+            // Запуск прелоудера
+            initPreloader();
+            
+            // Переинициализация Swiper при изменении размера окна
+            window.addEventListener('resize', () => {
+                if (projectsSwiper) {
+                    setTimeout(() => {
+                        projectsSwiper.update();
+                    }, 300);
+                }
+            });
+        });
+            
+
+
+
 // main.js
+
+
 document.addEventListener('DOMContentLoaded', () => {
   // Инициализация всех компонентов
   initBurgerMenu();
@@ -493,25 +666,25 @@ function initScreenWidthDebug() {
 // Инициализация отладки (опционально)
 // initScreenWidthDebug();
 
-// Предзагрузка изображений для лучшего UX
-function preloadImages() {
-  const images = document.querySelectorAll('img[data-src]');
-  const imageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src;
-        img.removeAttribute('data-src');
-        imageObserver.unobserve(img);
-      }
-    });
-  });
+// // Предзагрузка изображений для лучшего UX
+// function preloadImages() {
+//   const images = document.querySelectorAll('img[data-src]');
+//   const imageObserver = new IntersectionObserver((entries) => {
+//     entries.forEach(entry => {
+//       if (entry.isIntersecting) {
+//         const img = entry.target;
+//         img.src = img.dataset.src;
+//         img.removeAttribute('data-src');
+//         imageObserver.unobserve(img);
+//       }
+//     });
+//   });
 
-  images.forEach(img => imageObserver.observe(img));
-}
+//   images.forEach(img => imageObserver.observe(img));
+// }
 
-// Запуск предзагрузки
-preloadImages();
+// // Запуск предзагрузки
+// preloadImages();
 
 // Улучшенная обработка ошибок изображений
 document.addEventListener('error', (e) => {
