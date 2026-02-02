@@ -1,176 +1,172 @@
-    // Логика прелоудера
-        document.addEventListener('DOMContentLoaded', () => {
-            const preloader = document.getElementById('preloader');
-            const mainContent = document.getElementById('main-content');
-            const smokeContainer = document.getElementById('smokeContainer');
-            const progressBar = document.getElementById('progressBar');
-            const progressText = document.getElementById('progressText');
-            
-            let progress = 0;
-            let smokeParticles = [];
-            let sparks = [];
-            let projectsSwiper = null; // Переменная для Swiper
-            
-            // Создание частиц черного дыма
-            function createSmoke() {
-                const particleCount = 80 + Math.floor(Math.random() * 40);
-                
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement('div');
-                    particle.classList.add('smoke-particle');
-                    
-                    const size = 40 + Math.random() * 110;
-                    particle.style.width = `${size}px`;
-                    particle.style.height = `${size}px`;
-                    
-                    const posX = Math.random() * 100;
-                    const posY = 70 + Math.random() * 30;
-                    particle.style.left = `${posX}%`;
-                    particle.style.top = `${posY}%`;
-                    
-                    const darkness = 10 + Math.random() * 20;
-                    particle.style.background = `radial-gradient(circle, rgba(${darkness},${darkness},${darkness},0.9) 0%, rgba(0,0,0,0.7) 70%)`;
-                    
-                    const duration = 3 + Math.random() * 4;
-                    particle.style.animation = `smoke-dissipate ${duration}s ease-out forwards`;
-                    particle.style.animationDelay = `${Math.random() * 2}s`;
-                    
-                    smokeContainer.appendChild(particle);
-                    smokeParticles.push(particle);
-                    
-                    setTimeout(() => {
-                        if (particle.parentNode) {
-                            particle.remove();
-                        }
-                    }, duration * 1000);
-                }
-            }
-            
-            // Создание искр
-            function createSparks() {
-                const sparkCount = 10 + Math.floor(Math.random() * 10);
-                
-                for (let i = 0; i < sparkCount; i++) {
-                    const spark = document.createElement('div');
-                    spark.classList.add('spark');
-                    
-                    const size = 3 + Math.random() * 8;
-                    spark.style.width = `${size}px`;
-                    spark.style.height = `${size}px`;
-                    
-                    const posX = 40 + Math.random() * 20;
-                    spark.style.left = `${posX}%`;
-                    spark.style.top = `85%`;
-                    
-                    const hue = 30 + Math.random() * 20;
-                    spark.style.background = `radial-gradient(circle, 
+// Логика прелоудера
+document.addEventListener('DOMContentLoaded', () => {
+  const preloader = document.getElementById('preloader');
+  const mainContent = document.getElementById('main-content');
+  const smokeContainer = document.getElementById('smokeContainer');
+  const progressBar = document.getElementById('progressBar');
+  const progressText = document.getElementById('progressText');
+
+  let progress = 0;
+  let smokeParticles = [];
+  let sparks = [];
+  let projectsSwiper = null; // Переменная для Swiper
+
+  // Создание частиц черного дыма
+  function createSmoke() {
+    const particleCount = 80 + Math.floor(Math.random() * 40);
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('smoke-particle');
+
+      const size = 40 + Math.random() * 110;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+
+      const posX = Math.random() * 100;
+      const posY = 70 + Math.random() * 30;
+      particle.style.left = `${posX}%`;
+      particle.style.top = `${posY}%`;
+
+      const darkness = 10 + Math.random() * 20;
+      particle.style.background = `radial-gradient(circle, rgba(${darkness},${darkness},${darkness},0.9) 0%, rgba(0,0,0,0.7) 70%)`;
+
+      const duration = 3 + Math.random() * 4;
+      particle.style.animation = `smoke-dissipate ${duration}s ease-out forwards`;
+      particle.style.animationDelay = `${Math.random() * 2}s`;
+
+      smokeContainer.appendChild(particle);
+      smokeParticles.push(particle);
+
+      setTimeout(() => {
+        if (particle.parentNode) {
+          particle.remove();
+        }
+      }, duration * 1000);
+    }
+  }
+
+  // Создание искр
+  function createSparks() {
+    const sparkCount = 10 + Math.floor(Math.random() * 10);
+
+    for (let i = 0; i < sparkCount; i++) {
+      const spark = document.createElement('div');
+      spark.classList.add('spark');
+
+      const size = 3 + Math.random() * 8;
+      spark.style.width = `${size}px`;
+      spark.style.height = `${size}px`;
+
+      const posX = 40 + Math.random() * 20;
+      spark.style.left = `${posX}%`;
+      spark.style.top = `85%`;
+
+      const hue = 30 + Math.random() * 20;
+      spark.style.background = `radial-gradient(circle, 
                         hsla(${hue}, 100%, 50%, 0.9) 0%, 
-                        hsla(${hue+10}, 100%, 60%, 0.7) 50%, 
+                        hsla(${hue + 10}, 100%, 60%, 0.7) 50%, 
                         transparent 70%)`;
-                    
-                    const duration = 1 + Math.random() * 1.5;
-                    const sparkX = (Math.random() - 0.5) * 100;
-                    spark.style.setProperty('--spark-x', `${sparkX}px`);
-                    spark.style.animation = `spark-fly ${duration}s ease-out forwards`;
-                    
-                    smokeContainer.appendChild(spark);
-                    sparks.push(spark);
-                    
-                    setTimeout(() => {
-                        if (spark.parentNode) {
-                            spark.remove();
-                        }
-                    }, duration * 1000);
-                }
-            }
-               // Обновление прогресса загрузки
-            function updateProgress() {
-                if (progress >= 100) return;
-                
-                const increment = 1 + Math.random() * 4;
-                progress = Math.min(progress + increment, 100);
-                
-                progressBar.style.width = `${progress}%`;
-                
-                // Обновляем текст в зависимости от прогресса
-                if (progress < 20) {
-                    progressText.textContent = "Запуск темных протоколов...";
-                } else if (progress < 40) {
-                    progressText.textContent = "Генерация дымовой завесы...";
-                } else if (progress < 60) {
-                    progressText.textContent = "Активация искровых систем...";
-                } else if (progress < 80) {
-                    progressText.textContent = "Загрузка креативных модулей...";
-                } else if (progress < 95) {
-                    progressText.textContent = "Финальная инициализация...";
-                } else {
-                    progressText.textContent = "Система готова. Входим в темноту...";
-                }
-                
-                // Создаем дым и искры в зависимости от прогресса
-                if (progress < 30) {
-                    if (progress % 5 < 1) createSmoke();
-                } else if (progress < 70) {
-                    if (progress % 4 < 1) createSmoke();
-                    if (progress % 6 < 1) createSparks();
-                } else {
-                    if (progress % 8 < 1) createSmoke();
-                    if (progress % 3 < 1) createSparks();
-                }
-                
-                if (progress < 100) {
-                    setTimeout(updateProgress, 50 + Math.random() * 150);
-                } else {
-                    setTimeout(() => {
-                        smokeParticles.forEach(p => {
-                            p.style.animationDuration = '0.5s';
-                        });
-                        
-                        sparks.forEach(s => {
-                            s.style.animationDuration = '0.3s';
-                        });
-                        
-                        setTimeout(() => {
-                            preloader.style.animation = 'fadeOut 1.2s ease forwards';
-                            
-                            setTimeout(() => {
-                                preloader.style.display = 'none';
-                                mainContent.style.opacity = '1';
-                                mainContent.style.transition = 'opacity 0.8s ease';
-                                
-                                // Инициализация всех компонентов после загрузки
-                                initMainScripts();
-                            }, 1200);
-                        }, 800);
-                    }, 1000);
-                }
-            }
-               // Инициализация прелоудера
-            function initPreloader() {
-                for (let i = 0; i < 3; i++) {
-                    setTimeout(() => createSmoke(), i * 300);
-                }
-                setTimeout(updateProgress, 800);
-            }
-            
-            // Запуск прелоудера
-            initPreloader();
-            
-            // Переинициализация Swiper при изменении размера окна
-            window.addEventListener('resize', () => {
-                if (projectsSwiper) {
-                    setTimeout(() => {
-                        projectsSwiper.update();
-                    }, 300);
-                }
-            });
+
+      const duration = 1 + Math.random() * 1.5;
+      const sparkX = (Math.random() - 0.5) * 100;
+      spark.style.setProperty('--spark-x', `${sparkX}px`);
+      spark.style.animation = `spark-fly ${duration}s ease-out forwards`;
+
+      smokeContainer.appendChild(spark);
+      sparks.push(spark);
+
+      setTimeout(() => {
+        if (spark.parentNode) {
+          spark.remove();
+        }
+      }, duration * 1000);
+    }
+  }
+  // Обновление прогресса загрузки
+  function updateProgress() {
+    if (progress >= 100) return;
+
+    const increment = 1 + Math.random() * 4;
+    progress = Math.min(progress + increment, 100);
+
+    progressBar.style.width = `${progress}%`;
+
+    // Обновляем текст в зависимости от прогресса
+    if (progress < 20) {
+      progressText.textContent = "Запуск темных протоколов...";
+    } else if (progress < 40) {
+      progressText.textContent = "Генерация дымовой завесы...";
+    } else if (progress < 60) {
+      progressText.textContent = "Активация искровых систем...";
+    } else if (progress < 80) {
+      progressText.textContent = "Загрузка креативных модулей...";
+    } else if (progress < 95) {
+      progressText.textContent = "Финальная инициализация...";
+    } else {
+      progressText.textContent = "Система готова. Входим в темноту...";
+    }
+
+    // Создаем дым и искры в зависимости от прогресса
+    if (progress < 30) {
+      if (progress % 5 < 1) createSmoke();
+    } else if (progress < 70) {
+      if (progress % 4 < 1) createSmoke();
+      if (progress % 6 < 1) createSparks();
+    } else {
+      if (progress % 8 < 1) createSmoke();
+      if (progress % 3 < 1) createSparks();
+    }
+
+    if (progress < 100) {
+      setTimeout(updateProgress, 50 + Math.random() * 150);
+    } else {
+      setTimeout(() => {
+        smokeParticles.forEach(p => {
+          p.style.animationDuration = '0.5s';
         });
-            
 
+        sparks.forEach(s => {
+          s.style.animationDuration = '0.3s';
+        });
 
+        setTimeout(() => {
+          preloader.style.animation = 'fadeOut 1.2s ease forwards';
+
+          setTimeout(() => {
+            preloader.style.display = 'none';
+            mainContent.style.opacity = '1';
+            mainContent.style.transition = 'opacity 0.8s ease';
+
+            // Инициализация всех компонентов после загрузки
+            initMainScripts();
+          }, 1200);
+        }, 800);
+      }, 1000);
+    }
+  }
+  // Инициализация прелоудера
+  function initPreloader() {
+    for (let i = 0; i < 3; i++) {
+      setTimeout(() => createSmoke(), i * 300);
+    }
+    setTimeout(updateProgress, 800);
+  }
+
+  // Запуск прелоудера
+  initPreloader();
+
+  // Переинициализация Swiper при изменении размера окна
+  window.addEventListener('resize', () => {
+    if (projectsSwiper) {
+      setTimeout(() => {
+        projectsSwiper.update();
+      }, 300);
+    }
+  });
+});
 
 // main.js
-
 
 document.addEventListener('DOMContentLoaded', () => {
   // Инициализация всех компонентов
@@ -309,7 +305,7 @@ function initSwiper() {
   const updateSlideCounter = () => {
     const current = projectsSwiper.realIndex + 1;
     const total = projectsSwiper.slides.length - 2; // Учитываем loop-клоны
-    
+
     let counter = document.querySelector('.swiper-counter');
     if (!counter) {
       counter = document.createElement('div');
@@ -345,7 +341,7 @@ function initHeaderScroll() {
 
   window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    
+
     // Добавление класса при скролле
     if (currentScroll > scrollThreshold) {
       header.classList.add('scrolled');
@@ -372,21 +368,21 @@ function initHeaderScroll() {
 // Плавная прокрутка к якорям
 function initSmoothScrolling() {
   const links = document.querySelectorAll('a[href^="#"]');
-  
+
   links.forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
-      
+
       if (href === '#') return;
-      
+
       const target = document.querySelector(href);
       if (!target) return;
-      
+
       e.preventDefault();
-      
+
       const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
       const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-      
+
       window.scrollTo({
         top: targetPosition,
         behavior: 'smooth'
@@ -402,7 +398,7 @@ function initContactForm() {
 
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const formData = {
       name: contactForm.querySelector('input[type="text"]').value,
       email: contactForm.querySelector('input[type="email"]').value,
@@ -415,7 +411,7 @@ function initContactForm() {
 
     const submitBtn = contactForm.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
-    
+
     // Показ состояния загрузки
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
     submitBtn.disabled = true;
@@ -423,21 +419,21 @@ function initContactForm() {
     try {
       // Имитация отправки (в реальном проекте замените на fetch)
       await simulateApiCall(formData);
-      
+
       // Успешная отправка
       showNotification('Сообщение успешно отправлено!', 'success');
       contactForm.reset();
-      
+
       // Анимация успеха
       submitBtn.innerHTML = '<i class="fas fa-check"></i> Отправлено!';
       submitBtn.style.background = '#10b981';
-      
+
       setTimeout(() => {
         submitBtn.innerHTML = originalText;
         submitBtn.style.background = '';
         submitBtn.disabled = false;
       }, 2000);
-      
+
     } catch (error) {
       // Ошибка отправки
       showNotification('Ошибка отправки. Попробуйте еще раз.', 'error');
@@ -452,7 +448,7 @@ function initContactForm() {
     input.addEventListener('blur', () => {
       validateField(input);
     });
-    
+
     input.addEventListener('input', () => {
       clearFieldError(input);
     });
@@ -464,40 +460,40 @@ function validateForm(data) {
     showNotification('Введите ваше имя', 'error');
     return false;
   }
-  
+
   if (!data.email.trim() || !isValidEmail(data.email)) {
     showNotification('Введите корректный email', 'error');
     return false;
   }
-  
+
   if (!data.message.trim()) {
     showNotification('Введите сообщение', 'error');
     return false;
   }
-  
+
   return true;
 }
 
 function validateField(field) {
   const value = field.value.trim();
-  
+
   if (field.type === 'email' && value && !isValidEmail(value)) {
     showFieldError(field, 'Введите корректный email');
     return false;
   }
-  
+
   if (field.required && !value) {
     showFieldError(field, 'Это поле обязательно');
     return false;
   }
-  
+
   clearFieldError(field);
   return true;
 }
 
 function showFieldError(field, message) {
   clearFieldError(field);
-  
+
   const errorDiv = document.createElement('div');
   errorDiv.className = 'field-error';
   errorDiv.textContent = message;
@@ -506,7 +502,7 @@ function showFieldError(field, message) {
     font-size: 12px;
     margin-top: 5px;
   `;
-  
+
   field.parentNode.appendChild(errorDiv);
   field.style.borderColor = '#ef4444';
 }
@@ -537,7 +533,7 @@ function showNotification(message, type = 'info') {
   // Удаляем существующие уведомления
   const existing = document.querySelector('.notification');
   if (existing) existing.remove();
-  
+
   const notification = document.createElement('div');
   notification.className = `notification notification-${type}`;
   notification.textContent = message;
@@ -553,15 +549,15 @@ function showNotification(message, type = 'info') {
     z-index: 9999;
     animation: slideIn 0.3s ease;
   `;
-  
+
   document.body.appendChild(notification);
-  
+
   // Автоматическое скрытие
   setTimeout(() => {
     notification.style.animation = 'slideOut 0.3s ease';
     setTimeout(() => notification.remove(), 300);
   }, 5000);
-  
+
   // Добавляем стили для анимаций
   if (!document.querySelector('#notification-styles')) {
     const style = document.createElement('style');
@@ -611,10 +607,10 @@ function initStatsCounter() {
 
 function animateCounter(element, target) {
   let current = 0;
-  const increment = target / 100;
+  const increment = target / 50;
   const duration = 1500;
-  const stepTime = duration / 100;
-  
+  const stepTime = duration / 50;
+
   const timer = setInterval(() => {
     current += increment;
     if (current >= target) {
@@ -629,7 +625,7 @@ function animateCounter(element, target) {
 // Динамическое обновление ширины экрана (для отладки)
 function initScreenWidthDebug() {
   if (!window.location.hash.includes('debug')) return;
-  
+
   const button = document.createElement('button');
   button.id = 'screenWidthDebug';
   button.style.cssText = `
@@ -646,17 +642,17 @@ function initScreenWidthDebug() {
     cursor: pointer;
     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
   `;
-  
+
   const updateWidthLabel = () => {
     const currentWidth = window.innerWidth;
     button.innerHTML = `Ширина: ${currentWidth}px`;
   };
-  
+
   updateWidthLabel();
   window.addEventListener('resize', updateWidthLabel);
-  
+
   document.body.appendChild(button);
-  
+
   // Переключение видимости по клику
   button.addEventListener('click', () => {
     button.style.opacity = button.style.opacity === '0.5' ? '1' : '0.5';
