@@ -494,6 +494,7 @@ body {
   border-radius: 12px;
   display: block;
   transition: var(--transition);
+  object-fit: cover;
 }
 
 .image-container:hover img {

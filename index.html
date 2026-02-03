@@ -79,7 +79,7 @@
                 </div>
                 <div class="hero-image">
                     <div class="image-container">
-                        <img src="site//img/photo_2026-01-24_11-45-31.jpg" alt="images">
+                        <img src="site//img/123.jpg" alt="images">
                     </div>
                     <div class="floating-element floating-1">
                         <i class="fab fa-js fa-2x"><img src="site/img/js.png" width="50px" alt="icon js"></i>
@@ -101,7 +101,7 @@
                 <div class="about-image">
                     <div class="image-container">
                         <!-- <img src="site/img/photo_2026-01-24_11-45-32.jpg" alt="Рабочее место разработчика"> -->
-                        <img src="site/img/photo_2026-02-01_20-06-40.jpg" alt="Рабочее место разработчика">
+                        <img src="site/img//IMG-20220505-WA0005.jpg" alt="Рабочее место разработчика">
                     </div>
                 </div>
                 <div class="about-text">
@@ -175,8 +175,8 @@
                     <!-- Проект 2 -->
                     <div class="swiper-slide">
                         <div class="project-card">
-                            <img src="site/img/sport/11b659936f570e952704b88f0b31bf1c.jpg"
-                                alt="Блог на React" class="project-image">
+                            <img src="site/img/sport/11b659936f570e952704b88f0b31bf1c.jpg" alt="Блог на React"
+                                class="project-image">
                             <div class="project-content">
                                 <h3 class="project-title">Содружество - место сильных</h3>
                                 <div class="project-tags">
@@ -365,7 +365,7 @@
                     </div>
                     <h3>Email</h3>
                     <p>Для детальных обсуждений</p>
-                    <a href="shum0@mail.ru" class="contact-link">
+                    <a href="mailto:shum0@mail.ru" class="contact-link">
                         shum0@mail.ru <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -409,16 +409,21 @@
             </div>
 
             <div class="contact-form">
-                <form id="contactForm">
+                <form class="contacts-right-form"  action="https://api.web3forms.com/submit" method="POST">
+                      <input type="hidden" name="access_key" value="61f614c1-33a1-4ca9-adcd-149f47b9e8e5">
+
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Ваше имя" required>
+                        <input type="text" name="name" class="form-control" placeholder="Ваше имя" required>
                     </div>
+
                     <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Ваш email" required>
+                        <input type="email" name="email" class="form-control" placeholder="Ваш email" required>
                     </div>
+
                     <div class="form-group">
-                        <textarea class="form-control" placeholder="Сообщение" required></textarea>
+                        <textarea name="message" class="form-control" placeholder="Сообщение" required></textarea>
                     </div>
+
                     <button type="submit" class="btn btn-primary" style="width: 100%;">
                         <i class="fas fa-paper-plane"></i> Отправить сообщение
                     </button>
