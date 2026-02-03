@@ -1,3 +1,4 @@
+
 // Логика прелоудера
 document.addEventListener('DOMContentLoaded', () => {
   const preloader = document.getElementById('preloader');

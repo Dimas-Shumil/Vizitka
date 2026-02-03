@@ -74,6 +74,10 @@ body {
   animation: title-glow 4s ease-in-out infinite, flicker 3s infinite;
 }
 
+.loader-title.mobile {
+  display: none;
+}
+
 .loader-subtitle {
   font-family: "Courier New", monospace;
   font-size: 1.2rem;
@@ -878,6 +882,13 @@ textarea.form-control {
   }
 }
 @media (max-width: 768px) {
+  .loader-title {
+    display: none;
+  }
+  .loader-title.mobile {
+    font-size: 3rem;
+    display: block;
+  }
   .nav {
     position: fixed;
     top: 80px;
