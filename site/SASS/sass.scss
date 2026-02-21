@@ -74,11 +74,12 @@ body {
     text-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
     animation: title-glow 4s ease-in-out infinite, flicker 3s infinite;
 
-   
+
 }
- .loader-title.mobile {
-        display: none;
-    }
+
+.loader-title.mobile {
+    display: none;
+}
 
 .loader-subtitle {
     font-family: 'Courier New', monospace;
@@ -929,10 +930,12 @@ textarea.form-control {
     .loader-title {
         display: none;
     }
+
     .loader-title.mobile {
         font-size: 3rem;
         display: block;
     }
+
     .nav {
         position: fixed;
         top: 80px;
@@ -1091,4 +1094,126 @@ textarea.form-control {
     border-radius: 15px;
     font-size: 12px;
     z-index: 10;
+}
+
+.tech-stack {
+  padding: 50px 20px;
+  text-align: center;
+  position: relative;
+  background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+  box-shadow: var(--shadow-lg);
+ 
+  &__title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  &__description {
+    font-size: 1rem;
+    margin-bottom: 40px;
+    color: rgba(255, 255, 255, 0.568);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 30px;
+    justify-items: center;
+    align-items: start;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    background: rgba(255,255,255,0.05);
+    border-radius: var(--radius);
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    position: relative;
+    
+    /* Легкая тень для каждого элемента */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15),
+                  0 6px 8px rgba(0, 0, 0, 0.2);
+      background: rgba(255,255,255,0.1);
+    }
+
+    & .tech-stack__logo {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 10px;
+      transition: transform 0.3s, filter 0.3s;
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+    }
+
+    & .tech-stack__name {
+      font-size: 0.9rem;
+      color: white;
+      font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    &:hover .tech-stack__logo {
+      transform: scale(1.1);
+      filter: drop-shadow(0 6px 8px rgba(255, 255, 255, 0.3));
+    }
+  }
+
+  /* Дополнительный градиентный эффект при наведении на секцию */
+  &:hover::before {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.7) 20%,
+      rgba(255, 255, 255, 1) 50%,
+      rgba(255, 255, 255, 0.7) 80%,
+      transparent 100%
+    );
+    transition: background 0.3s ease;
+  }
+
+  &:hover::after {
+    background: linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.7) 20%,
+      rgba(255, 255, 255, 1) 50%,
+      rgba(255, 255, 255, 0.7) 80%,
+      transparent 100%
+    );
+    transition: background 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    &__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    &__item .tech-stack__logo {
+      width: 50px;
+      height: 50px;
+    }
+
+    &__item .tech-stack__name {
+      font-size: 0.85rem;
+    }
+
+    /* Адаптация теней для мобильных */
+    &::before,
+    &::after {
+      height: 1px;
+    }
+  }
 }
