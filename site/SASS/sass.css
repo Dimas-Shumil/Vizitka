@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @keyframes smoke-dissipate {
   0% {
     transform: translateY(0) scale(0.8);
@@ -282,7 +283,7 @@ body {
   right: 0;
   z-index: 1000;
   padding: 20px 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -330,7 +331,7 @@ body {
   font-size: 1rem;
   position: relative;
   padding: 8px 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 .nav-link:after {
   content: "";
@@ -340,7 +341,7 @@ body {
   width: 0;
   height: 2px;
   background: #10b981;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 .nav-link:hover {
   color: #10b981;
@@ -364,7 +365,7 @@ body {
   width: 100%;
   height: 2px;
   background: #f8fafc;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   border-radius: 2px;
 }
 .burger.active .burger-line:nth-child(1) {
@@ -466,7 +467,7 @@ body {
   height: 600px;
   border-radius: 12px;
   display: block;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   object-fit: cover;
 }
 .image-container:hover img {
@@ -511,7 +512,7 @@ body {
   font-weight: 600;
   font-size: 1rem;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -581,7 +582,7 @@ body {
   border-radius: 16px;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
   text-align: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 .stat:hover {
   transform: translateY(-5px);
@@ -613,7 +614,7 @@ body {
   border-radius: 16px;
   overflow-y: auto;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   height: 100%;
   max-height: 500px;
 }
@@ -650,7 +651,7 @@ body {
   text-decoration: none;
   font-weight: 600;
   font-size: 0.875rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 .project-link:hover {
   gap: 12px;
@@ -719,7 +720,7 @@ body {
   border-radius: 16px;
   padding: 30px;
   text-align: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 .contact-card:hover {
   transform: translateY(-5px);
@@ -753,7 +754,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 .contact-link:hover {
   gap: 12px;
@@ -780,7 +781,7 @@ body {
   color: white;
   font-size: 1rem;
   font-family: "Inter", sans-serif;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 .form-control:focus {
   outline: none;
@@ -796,6 +797,130 @@ body {
 .form textarea.form-control {
   min-height: 150px;
   resize: vertical;
+}
+
+/* ===== Секция services ===== */
+.services {
+  padding: 80px 0;
+  background-color: #f9fafb;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+.services .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.services__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+.services__subtitle {
+  font-size: 1.25rem;
+  color: #6b7280;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 60px;
+  line-height: 1.5;
+}
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  margin-bottom: 60px;
+}
+@media (max-width: 992px) {
+  .services__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 576px) {
+  .services__grid {
+    grid-template-columns: 1fr;
+  }
+}
+.services__note {
+  background-color: #fff;
+  border-left: 4px solid #10b981;
+  padding: 20px 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+  color: #1f2937;
+}
+.services__note p {
+  margin: 0;
+}
+.services__note strong {
+  color: #10b981;
+}
+.services__cta {
+  text-align: center;
+}
+
+/* ===== Карточка услуги ===== */
+.service-card {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 30px 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s;
+}
+.service-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.service-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+.service-card__icon {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.service-card__title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 15px;
+}
+.service-card__text {
+  font-size: 1rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ===== Кнопка ===== */
+.button {
+  display: inline-block;
+  background-color: #3b82f6;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 16px 40px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+  border: none;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: rgb(11.1512195122, 99.1219512195, 242.8487804878);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(59, 130, 246, 0.4);
+}
+.button:active {
+  transform: translateY(0);
 }
 
 .footer {
@@ -814,7 +939,7 @@ body {
 .footer-link {
   color: #94a3b8;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
 }
 .footer-link:hover {
   color: #6366f1;
@@ -861,7 +986,7 @@ body {
   padding: 15px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   position: relative;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -955,7 +1080,7 @@ body {
     transform: translateY(-100%);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
   .nav.active {

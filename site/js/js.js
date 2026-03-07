@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.nav');
     const swiperContainer = document.querySelector('.projects-swiper');
-    const contactForm = document.querySelector('.contacts-right-form'); // Исправлено: ищем по классу
+    const contactForm = document.querySelector('.contacts-right-form');
     const floatingElements = document.querySelectorAll('.floating-element');
     const statsNumbers = document.querySelectorAll('.stat-number');
 
@@ -99,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
             else if (progress < 95) progressText.textContent = "Финальная инициализация...";
             else progressText.textContent = "Система готова. Входим в темноту...";
 
-            // Создание дыма и искр в зависимости от прогресса
             if (progress < 30) {
                 if (progress % 5 < 1) createSmoke();
             } else if (progress < 70) {
@@ -121,15 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         preloader.style.animation = 'fadeOut 1.2s ease forwards';
                         setTimeout(() => {
                             preloader.style.display = 'none';
-                            // Показываем основной контент (если он был скрыт)
-                            document.body.style.overflow = 'auto'; // разблокируем скролл, если был заблокирован
+                            document.body.style.overflow = 'auto';
                         }, 1200);
                     }, 800);
                 }, 1000);
             }
         }
 
-        // Запуск прелоудера
         for (let i = 0; i < 3; i++) {
             setTimeout(() => createSmoke(), i * 300);
         }
@@ -218,11 +215,9 @@ document.addEventListener('DOMContentLoaded', () => {
             },
         });
 
-        // Пауза при наведении
         swiperContainer.addEventListener('mouseenter', () => projectsSwiper.autoplay.stop());
         swiperContainer.addEventListener('mouseleave', () => projectsSwiper.autoplay.start());
 
-        // Счётчик слайдов
         const updateSlideCounter = () => {
             const current = projectsSwiper.realIndex + 1;
             const total = projectsSwiper.slides.length - 2;
@@ -243,7 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
         projectsSwiper.on('slideChange', updateSlideCounter);
         updateSlideCounter();
 
-        // Обновление при ресайзе
         window.addEventListener('resize', () => setTimeout(() => projectsSwiper.update(), 300));
     }
 
@@ -296,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ========== ФОРМА ОБРАТНОЙ СВЯЗИ (Web3Forms) ==========
+    // ========== ФОРМА ОБРАТНОЙ СВЯЗИ ==========
     if (contactForm) {
         const submitBtn = contactForm.querySelector('button[type="submit"]');
 
@@ -304,9 +298,6 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             const formData = new FormData(contactForm);
-            // access_key уже есть в скрытом поле в HTML, но можно добавить и здесь
-            // formData.append("access_key", "61f614c1-33a1-4ca9-adcd-149f47b9e8e5");
-
             const originalText = submitBtn.textContent;
 
             submitBtn.textContent = "Отправка...";
@@ -357,7 +348,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000);
     }
 
-    // Стили для уведомлений (добавляем один раз)
     if (!document.querySelector('#notification-styles')) {
         const style = document.createElement('style');
         style.id = 'notification-styles';
@@ -373,55 +363,69 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.animationDelay = `${index * 0.9}s`;
     });
 
-   
     // ========== СЧЁТЧИКИ СТАТИСТИКИ ==========
-function initStatsCounter() {
-    const statsNumbers = document.querySelectorAll('.stat-number');
-    if (!statsNumbers.length) return;
+    function initStatsCounter() {
+        const statsNumbers = document.querySelectorAll('.stat-number');
+        if (!statsNumbers.length) return;
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const stat = entry.target;
-                const originalText = stat.textContent.trim();
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const stat = entry.target;
+                    const originalText = stat.textContent.trim();
+                    const numberMatch = originalText.match(/\d+(\.\d+)?/);
+                    if (!numberMatch) return;
 
-                // Извлекаем первое число из строки (целое или дробное)
-                const numberMatch = originalText.match(/\d+(\.\d+)?/);
-                if (!numberMatch) return; // если числа нет — не анимируем
+                    const target = parseFloat(numberMatch[0]);
+                    const suffix = originalText.slice(numberMatch[0].length);
 
-                const target = parseFloat(numberMatch[0]);
-                // Суффикс — всё, что идёт после числа
-                const suffix = originalText.slice(numberMatch[0].length);
+                    animateCounter(stat, target, suffix);
+                    observer.unobserve(stat);
+                }
+            });
+        }, { threshold: 0.2 });
 
-                animateCounter(stat, target, suffix);
-                observer.unobserve(stat);
+        statsNumbers.forEach(stat => observer.observe(stat));
+    }
+
+    function animateCounter(element, target, suffix) {
+        let current = 0;
+        const steps = 50;
+        const increment = target / steps;
+        const stepTime = 1500 / steps;
+
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = target + suffix;
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current) + suffix;
             }
+        }, stepTime);
+    }
+
+    initStatsCounter();
+
+    // ========== АНИМАЦИЯ КАРТОЧЕК УСЛУГ (ДОБАВЛЕНО) ==========
+    const serviceCards = document.querySelectorAll('.service-card');
+    if (serviceCards.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -20px 0px'
         });
-    }, { threshold: 0.2 }); // пониженный порог для более раннего срабатывания
 
-    statsNumbers.forEach(stat => observer.observe(stat));
-}
-
-function animateCounter(element, target, suffix) {
-    let current = 0;
-    const steps = 50;               // количество шагов анимации
-    const increment = target / steps;
-    const stepTime = 1500 / steps;   // 1500 мс / 50 = 30 мс
-
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            element.textContent = target + suffix; // финальное значение + суффикс
-            clearInterval(timer);
-        } else {
-            // Показываем текущее значение + суффикс (опционально)
-            element.textContent = Math.floor(current) + suffix;
-        }
-    }, stepTime);
-}
-
-// Запускаем после загрузки страницы
-initStatsCounter();
+        serviceCards.forEach(card => observer.observe(card));
+    }
 
     // ========== ОБРАБОТКА ОШИБОК ИЗОБРАЖЕНИЙ ==========
     document.addEventListener('error', (e) => {
@@ -431,16 +435,14 @@ initStatsCounter();
         }
     }, true);
 
-    // ========== АВТОСОХРАНЕНИЕ ФОРМЫ (опционально) ==========
+    // ========== АВТОСОХРАНЕНИЕ ФОРМЫ ==========
     if (contactForm) {
-        // Восстановление данных
         const savedData = JSON.parse(localStorage.getItem('contactFormData') || '{}');
         Object.keys(savedData).forEach(key => {
             const input = contactForm.querySelector(`[name="${key}"]`);
             if (input) input.value = savedData[key];
         });
 
-        // Автосохранение
         contactForm.addEventListener('input', (e) => {
             if (e.target.matches('.form-control')) {
                 const formData = new FormData(contactForm);
@@ -449,7 +451,6 @@ initStatsCounter();
             }
         });
 
-        // Очистка после отправки
         contactForm.addEventListener('submit', () => {
             localStorage.removeItem('contactFormData');
         });
