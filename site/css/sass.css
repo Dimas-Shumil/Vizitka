@@ -623,9 +623,19 @@ body {
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
 }
 .project-image {
-  height: 200px;
   width: 100%;
+  height: 200px;
+  /* как у вашего видео */
+  overflow: hidden;
+  /* чтобы ничего не вылезало за пределы */
+  position: relative;
+  /* для дополнительного контроля */
+}
+.project-image-video {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  /* или contain, см. пояснения ниже */
 }
 .project-content {
   padding: 25px;
