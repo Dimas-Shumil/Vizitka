@@ -178,6 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========== SWIPER ==========
+    
     if (swiperContainer && typeof Swiper !== 'undefined') {
         const projectsSwiper = new Swiper('.projects-swiper', {
             loop: true,

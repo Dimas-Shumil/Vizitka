@@ -857,7 +857,8 @@ body {
     }
 }
 
-// Contact Section
+// ======Contact Section=======
+
 .contact {
     padding: 100px 0;
     background: $dark;
@@ -981,6 +982,7 @@ body {
 }
 
 /* ===== Секция services ===== */
+
 .services {
     padding: 80px 0;
     background-color: $bg-light;
@@ -1050,6 +1052,7 @@ body {
 }
 
 /* ===== Карточка услуги ===== */
+
 .service-card {
     background-color: #fff;
     border-radius: $border-radius;
@@ -1092,6 +1095,7 @@ body {
 }
 
 /* ===== Кнопка ===== */
+
 .button {
     display: inline-block;
     background-color: $primary-color;
@@ -1118,6 +1122,7 @@ body {
 }
 
 // Footer
+
 .footer {
     padding: 40px 0;
     text-align: center;
@@ -1148,6 +1153,7 @@ body {
 }
 
 // Tech Stack Section
+
 .tech-stack {
     padding: 50px 20px;
     text-align: center;
@@ -1223,7 +1229,7 @@ body {
     }
 }
 
-// Notifications
+// =====Notifications======
 .notification {
     position: fixed;
     top: 20px;
