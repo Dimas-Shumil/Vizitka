@@ -307,6 +307,7 @@ body {
   font-size: 1.5rem;
   color: #f8fafc;
   text-decoration: none;
+  cursor: pointer;
 }
 .logo-icon {
   background: #6366f1;
@@ -318,6 +319,12 @@ body {
   justify-content: center;
   color: white;
   font-weight: bold;
+}
+.logo-icon img {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
 }
 
 .nav {

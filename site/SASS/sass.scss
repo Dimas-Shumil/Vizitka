@@ -406,6 +406,7 @@ body {
     font-size: 1.5rem;
     color: $light;
     text-decoration: none;
+    cursor: pointer;
 
     &-icon {
         background: $primary;
@@ -415,6 +416,14 @@ body {
         @include flex-center;
         color: white;
         font-weight: bold;
+
+        img {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            box-shadow: $shadow-lg;
+
+        }
     }
 }
 
