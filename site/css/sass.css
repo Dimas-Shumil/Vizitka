@@ -124,10 +124,12 @@
     transform: rotate(360deg);
   }
 }
-* {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 html {
@@ -140,6 +142,11 @@ body {
   color: #0f172a;
   background: linear-gradient(135deg, #f0f4ff 0%, #f8fafc 100%);
   overflow-x: hidden;
+}
+
+body.no-scroll {
+  overflow: hidden;
+  height: 100vh;
 }
 
 .preloader {

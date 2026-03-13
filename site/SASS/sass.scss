@@ -207,11 +207,14 @@ $transition: all 0.3s ease;
 }
 
 // Базовые стили
-* {
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
+
 
 html {
     scroll-behavior: smooth;
@@ -223,6 +226,10 @@ body {
     color: $dark;
     background: linear-gradient(135deg, #f0f4ff 0%, #f8fafc 100%);
     overflow-x: hidden;
+}
+body.no-scroll {
+    overflow: hidden;
+    height: 100vh;
 }
 
 // Прелоудер
