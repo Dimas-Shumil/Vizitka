@@ -302,29 +302,23 @@ body {
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: #f8fafc;
   text-decoration: none;
-  cursor: pointer;
-}
-.logo-icon {
-  background: #6366f1;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: white;
-  font-weight: bold;
+  cursor: pointer;
+  z-index: 9999;
 }
-.logo-icon img {
-  width: 46px;
-  height: 46px;
-  border-radius: 10px;
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+.logo img {
+  width: auto;
+  height: 72px;
+}
+.logo .logo-text {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+@media (max-width: 1047px) {
+  .logo img {
+    height: 42px;
+  }
 }
 
 .nav {
